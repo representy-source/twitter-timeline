@@ -14,12 +14,10 @@
     "pretest": "yarn run lint",
     "test": "jest",
     "build": "babel src/ -d dist/",
-    "preversion": "yarn build && git commit -a --allow-empty -m \"update dist\"",
-    "push": "yarn build && git plus && git push origin master:master -f && git push origin master:develop -f"
+    "preversion": "yarn build && git commit -a --allow-empty -m \"update dist\""
   },
   "dependencies": {
-    "lodash": "^4.17.4",
-    "representy-source-html": "^0.0.1"
+    "representy-source-twitter-widget-base": "^0.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

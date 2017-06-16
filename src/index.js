@@ -1,47 +1,37 @@
-import _ from 'lodash';
-import HTML from 'representy-source-html';
-import pkg from '../package.json';
+import TwitterWidgetBase from 'representy-source-twitter-widget-base';
 
-class TwitterTimeline {
+// <a class="twitter-timeline"
+//     data-lang="tr"
+//     data-width="400"
+//     data-height="300"
+//     data-dnt="true"
+//     data-theme="dark"
+//     data-link-color="#292"
+//   href="https://twitter.com/salimkayabasi">
+//     Tweets by salimkayabasi
+// </a>
+
+class TwitterTimeline extends TwitterWidgetBase {
   constructor(options) {
-    this.options = options || {};
+    super('timeline', options, [
+      'lang',
+      'width',
+      'height',
+      'dnt',
+      'theme',
+      'linkColor',
+    ]);
+  }
+  // eslint-disable-next-line class-methods-use-this
+  getHref() {
+    return 'https://twitter.com/<%= username %>';
   }
 
-  static getMarkup(option) {
-    const key = _.kebabCase(option);
-    return `
-    <% if (typeof ${option} !== 'undefined') { %>
-      data-${key}="<%= ${option} %>" 
-    <% } %>`;
+  // eslint-disable-next-line class-methods-use-this
+  getContent() {
+    return 'Tweets by <%= username %>';
   }
 
-  static getTemplate(options) {
-    const getMarkup = TwitterTimeline.getMarkup;
-    const username = '<%= username %>';
-    const params = _.keys(options).map(key => `${getMarkup(key)}`).join('\n');
-    return `
-      <a class="twitter-timeline" 
-      ${params} 
-      href="https://twitter.com/${username}">Tweets by ${username}</a> 
-      <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-    `;
-  }
-
-  static cleanMarkup(markup) {
-    return markup.replace(/\n/g, '').split('  ').join('');
-  }
-
-  load() {
-    if (_.isEmpty(this.options.username)) {
-      throw new Error(`username is required for ${pkg.name}`);
-    }
-    const html = new HTML({
-      engine: 'ejs',
-      template: TwitterTimeline.getTemplate(this.options),
-      data: this.options,
-    });
-    return TwitterTimeline.cleanMarkup(html.load());
-  }
 }
 
 export default TwitterTimeline;

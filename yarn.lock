@@ -3122,6 +3122,13 @@ representy-source-html@^0.0.1:
   dependencies:
     representy-tool-renderer "^0.0.5"
 
+representy-source-twitter-widget-base@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/representy-source-twitter-widget-base/-/representy-source-twitter-widget-base-0.0.1.tgz#9389b4b00a1f78af62258e80e0678f620630f9ef"
+  dependencies:
+    lodash "^4.17.4"
+    representy-source-html "^0.0.1"
+
 representy-tool-renderer@^0.0.5:
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/representy-tool-renderer/-/representy-tool-renderer-0.0.5.tgz#8265fb115c65ea5684af4bce32919494c099b325"
